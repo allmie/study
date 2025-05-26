@@ -35,17 +35,17 @@ a.toUpperCase(); // 코드를 실행 전 오류를 확인할 수 있고, 실행
 
 
 ## 타입스크립트 동작
-사람 -> 프로그래밍 언어 ->(컴파일) 기계어 -> 컴퓨터  // draw.io
+![drawio](https://github.com/user-attachments/assets/9118a2f0-a633-43a3-9461-49e827128791)
 
 **Javascript 컴파일**
 
-Javascript -> AST(추상 문법 트리) -> 바이트 코드  // draw.io
+![2 drawio (1)](https://github.com/user-attachments/assets/f4fdae71-5f1d-4585-b3db-5bce57585899)
 
 **Typescript 컴파일**
 
-Typescript -> AST ->  // draw.io
-a) 타입 검사 후 오류 발견 -> 컴파일 종료
-b) 타입 검사 후 오류가 없음 -> Javscript -> AST -> 바이트 코드
+![3 drawio](https://github.com/user-attachments/assets/0a55a3f2-ebb2-46cc-97af-c066452d9ae8)
+
+
 ```typescript
 // 오류 발견
 let a: number = 1;
@@ -58,6 +58,11 @@ let b: number = 1;
 
 console.log(b); // Javscript로 변환 후 이후 컴파일 진행
 ```
+
+
+
+
+
 
 > // 별도 문서로 분리
 > 기계어 - CPU가 해석하고 실행할 수 있는 비트 단위로 이루어진 컴퓨터 언어
