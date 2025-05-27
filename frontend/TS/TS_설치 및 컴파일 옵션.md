@@ -44,7 +44,7 @@ typescript 설정 파일 생성
  },
  "include": ["src"],    // 컴파일할 범위 지정, 컴파일 명령시 경로 생략 가능
  "ts-node": {
-  "esm": true,          // ts-node에서 ESModule 사용 여부 -> 주의할점 > ES module 확인
+  "esm": true,          // ts-node에서 ESModule 사용 여부 - compilerOptions-module
  }
 }
 ```
