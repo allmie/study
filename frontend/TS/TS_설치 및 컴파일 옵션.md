@@ -8,27 +8,25 @@
 a. nodejs 초기화
 > npm init
 
-b. nodejs 타입 패키지 설치
+b. nodejs 타입 패키지, typescript 컴파일러 설치
 > npm i @types/node
-
-c. typescript 컴파일러 설치
 > sudo npm i typescript -g
 
-d. typescript 파일 실행
-> tsc [ts 파일 경로] // typescript 파일 검사 및 컴파일
-> node [js 파일 경로] // 컴파일 된 javascript 파일 실행
+c. typescript 파일 실행
+> tsc [.../ts 파일] // typescript 파일 검사 및 컴파일
+> node [.../js 파일] // 컴파일 된 javascript 파일 실행
 
 ### 2) tsx 사용
 a. typescript 컴파일과 실행을 동시에 수행하는 패키지
 > sudo npm i tsx -g
 
 b. typescript 파일 실행
-> tsx [ts 파일 경로] // typescript 컴파일 + javascript 파일 실행
+> tsx [.../ts 파일] // typescript 컴파일 + javascript 파일 실행
 
 
 ## Typescript 컴파일 옵션
 
-typescript 옵션 파일 생성
+typescript 설정 파일 생성
 > tsc init
 
 ```json
@@ -49,17 +47,56 @@ typescript 옵션 파일 생성
 }
 ```
 
-주의
-1. typescript는 기본적으로 전역 모듈
-moduleDetection: force
-- export, import 없이 typescript의 모든 파일을 독립 모듈로 사용
+---
+### Typescript 작성시 주의
+- typescript는 기본적으로 모든 파일을 하나의 모듈로(전역 모듈) 취급해서 다른 파일에서도 같은 이름의 변수나 함수를 사용할 수 없다
 ```typescript
+// exam.ts
 const a = 1;
 
-export {};  // 해당 모듈을 독립적으로 사용
+console.log(a);
+```
+```typescript
+// exam2.ts
+const a = 'temp'; // error, Cannot redeclare block-scoped variable 'a'.ts(2451)
+
+console.log(a);
 ```
 
-2. js 모듈
-모듈 시스템
+a) `export`, `import` 사용
+- `export {}` 구문을 사용하면 해당 파일을 독립적으로 사용
+```typescript
+// exam.ts
+const a = 1;
 
-3. 
+console.log(a);
+export {};
+```
+```typescript
+// exam2.ts
+const a = 'temp';
+
+console.log(a);
+```
+
+b) typescript 옵션 변경
+- `moduleDetection: "force"` 옵션은 모든 파일을 각각 독립된 모듈로 사용하는 옵션
+```json
+{
+ compilerOptions: {
+  moduleDetection: "force",
+  ...
+}
+```
+```typescript
+// exam.ts
+const a = 1;
+
+console.log(a);
+```
+```typescript
+// exam2.ts
+const a = 'temp'; // ok
+
+console.log(a);
+```
