@@ -91,13 +91,14 @@ user.id;  // error
 ```
 
 객체 타입 옵션
+선택적 프로퍼티
 ```typescript
-// optional property
 let dog: { name: string, color?: string } = {
  name: "happy"
 }
-
-// readonly
+```
+읽기 전용 프로퍼티
+```typescript
 let config: { readonly: string; } = {
  apiKey: "my api key"
 }
