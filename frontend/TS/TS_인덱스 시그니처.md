@@ -43,8 +43,14 @@ console.log(str1["1"]); // error, "asdf" 리터럴 문자열이 아니기 떄문
 
 **오류 개선**
 ```typescript
+// 1)
 type Strings2 = {
     [a: number]: "asdf";
+    [a: string]: string;
+}
+
+// 2)
+type Strings2 = {
     [a: string]: string;
 }
 ```
@@ -68,7 +74,7 @@ type Test = {
 }
 ```
 위 코드에서 오류가 나타납니다.
-인덱스 시그니처로 작성한 프로퍼티 타입과 동일한 타입을 사용하면 value도 같은 타입을 사용하거나 
+인덱스 시그니처로 작성한 프로퍼티 key 타입과 동일한 key 타입을 사용하면 value도 같은 타입을 사용하거나 
 union 타입을 사용해야 합니다
 ```typescript
 type Test2 = {
