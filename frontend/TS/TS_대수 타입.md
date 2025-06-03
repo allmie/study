@@ -68,7 +68,7 @@ let d: Union1 = {
 
 
 ## Intersection 타입
-교집합. 2개 이상의 타입을 조합하는 경우를 말합니다. 허용할 수 있는 타입이나 타입의 개수에 제한이 없습니다.(and)
+교집합. 2개 이상의 타입을 조합하는 경우를 말합니다.(and)
 
 ```typescript
 let n: never = null as never;
