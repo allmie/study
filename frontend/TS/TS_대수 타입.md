@@ -80,6 +80,7 @@ variable = n;
 variable = v;  // error
 ```
 
+### 관계가 없는 두 타입
 <div align="center">
  <img src="https://github.com/user-attachments/assets/a48178aa-ba57-4eac-a4d1-f5612db0dcfa" width="50%" height="50%" title="Union 타입 집합" alt="Union 타입 집합 drawio"></img>
 </div>
@@ -87,6 +88,7 @@ variable = v;  // error
 두 집합은 교집합이 없기 때문에 never 타입으로 추론 됩니다.
 
 
+### 교집합이 있는 두 타입
 ```typescript
 type Dog = {
   name: string;
