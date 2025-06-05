@@ -97,5 +97,55 @@ value가 age 프로퍼티를 가지는 객체 타입일 때를 구분하는 타�
 객체의 속성을 통해 객체의 타입을 구분하지만, 정확하게 특정 타입을 찾는 것은 아니라고 생각합니다.
 그래서 고유한 속성을 파악하는 것이 중요합니다
 
-(### 사용자 정의 타입 가드)
+
+### 사용자 정의 타입 가드
+복잡한 타입을 사용할 때 함수를 사용해서 값의 타입을 좁히는 타입 가드를 만드는 문법입니다.
+
+```typescript
+type Dog = {
+  name: string;
+  isBark: boolean;
+};
+
+type Cat = {
+  name: string;
+  isScratch: boolean;
+};
+
+type Animal = Dog | Cat;
+
+function warning(animal: Animal) {
+  if ("isBark" in animal) {
+    console.log(animal.isBark ? "짖습니다" : "안짖어요");
+  } else if ("isScratch" in animal) {
+    console.log(animal.isScratch ? "할큅니다" : "안할퀴어요");
+  }
+}
+```
+`in` 연산자를 사용해 타입을 좁히는 방식은 객체의 프로퍼티에 의존하기 때문에 이 프로퍼티가 변경되면 관련된 코드도 수정이 필요합니다.
+
+*사용자 정의 타입 가드*
+```typescript
+// Dog 타입인지 확인하는 타입 가드
+function isDog(animal: Animal): animal is Dog {
+  return (animal as Dog).isBark !== undefined;
+}
+
+// Cat 타입인지 확인하는 타입가드
+function isCat(animal: Animal): animal is Cat {
+  return (animal as Cat).isScratch !== undefined;
+}
+
+function warning(animal: Animal) {
+  if (isDog(animal)) {
+    console.log(animal.isBark ? "짖습니다" : "안짖어요");
+  } else {
+    console.log(animal.isScratch ? "할큅니다" : "안할퀴어요");
+  }
+}
+```
+`isDog`, `isCat` 함수는 구현부에 따라 매개변수가 `Dog` 타입인지 `Cat` 타입인지 각각 true 혹은 false를 반환합니다.
+
+> `is` 키워드는 사용자 정의 타입 가드를 정의할 때 사용됩니다. 함수의 반환 타입에 사용되어, 조건이 참일 경우 값이 특정 타입임을 알려줍니다
+
 (### interface 타입 가드)
