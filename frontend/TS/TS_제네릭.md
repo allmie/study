@@ -46,7 +46,7 @@ let str = print("asdf");        // string
 
 console.log(str.toUpperCase());
 ```
-제네릭을(타입 변수) 사용하면 함수롤 호출할 때 타입을 지정합니다. 숫자 10을 매개변수로 사용하면 number 타입, 문자 "asdf"를 사용하면 string 타입이 됩니다.
+제네릭을(타입 변수) 사용하면 함수롤 호출할 때 타입을 지정합니다. 숫자 10을 매개변수로 사용하면 number 타입, 문자 "asdf"를 사용하면 string 반환값을 타입으로 추론합니다.
 
 
 ## 제네릭 응용
@@ -68,7 +68,7 @@ function print<T>(v: T): T{
 
 let num = print<[number, number, number]>([1, 2, 3]);    // tuple
 ```
-함수 호출 시 타입을 직접 명시할 수 있습니다. 1)코드가 복잡한 경우 타입 추론이 잘못되거나 2)위 코드에서처럼 원하는 타입이 있을 때 타입의 변수를 명시합니다. 
+위 코드처럼 원하는 타입이 있다면 타입을 명시합니다.
 위 코드의 경우 tuple 타입을 명시하지 않았다면 number[] 타입으로 추론 되었을 것입니다.
 
 타입스크립트는 타입 추론 시 더 일반적인(범용적인) 타입으로 추론하기 때문에 원하는 특정 타입이 있다면 직접 명시해야 합니다.
@@ -86,7 +86,7 @@ numArr 변수는 number[] 타입의 매개변수를 전달해서 타입 변수�
 
 unionArr 변수는 (string | number)[] 타입의 매개변수를 전달해서 타입 변수는 (string | number)[] 타입으로 추론됩니다.
 
-### 배열에서(tuple) 원하는 값의 타입만 추론
+### 배열에서 원하는 값의 타입만 추론
 ```typescript
 function returnFirstValue<T>(data: [T, ...unknown[]]) {
   return data[0];
@@ -115,18 +115,18 @@ getLength(null);             // error
 ```
 `T extends K` 형태는 T 타입을 K의 서브 타입 혹은 T 타입을 K의 특징으로 제한합니다.
 
-위 코드에서 T 타입은 { length: number }의 서브 타입인 길이를 가지는 타입으로 제한됩니다. undefined와 null 타입은 길이를 가지는 타입이 아니기 때문에 오류가 발생합니다.
+위 코드에서 T 타입은 { length: number }의 길이를 가지는 타입으로 제한됩니다. undefined, null 타입은 길이를 가지는 타입이 아니기 때문에 오류가 발생합니다.
 
 
 ### 제네릭 (함수) 활용
-**제네릭을 사용해서 map 타입 만들기**
-**제네릭을 사용해서 foreach 타입 만들기**
+- **제네릭을 사용해서 map 타입 만들기**
+- **제네릭을 사용해서 foreach 타입 만들기**
 
 
 ## 제네릭 인터페이스
 인터페이스에도 타입 변수를 선언할 수 있습니다. 제네릭 인터페이스로 타입을 정의할 때는 반드시 타입을 명시해야 합니다. 
 
-제네릭을 함수의 인자로 사용하면 타입을 추론할 수 있지만, 제네릭 인터페이스처럼 변수로 선언하면 타입을 추론할 수 없기 때문에 타입을 반드시 명시해야 합니다.
+제네릭을 함수의 인자로 사용하면 타입을 추론할 수 있지만, 변수의 타입으로 선언하면 타입을 추론할 수 없기 때문에 타입을 반드시 명시해야 합니다.
 
 ### 객체
 ```typescript
@@ -221,7 +221,7 @@ goToSchool(studentUser);    // "서울대로 등교 완료"
 
 Student 타입을 가지는 User만 이용할 수 있는 gotoSchool() 함수를 정의하고, Developer 타입을 가지는 User는 타입 가드를 사용해 분리합니다.
 
-오류 검사 및 실행에는 문제가 없습니다. 하지만 선언한 유저 변수는 profile 프로퍼티를 확인하기 전까지 학생인지 개발자인지 알 수 없습니다. 그리고 특정 유저를 위한 함수가 생길수록 중복하여 타입 가드를 작성해야 하는 불편함이 있습니다.
+오류 검사 및 실행에는 문제가 없습니다. 하지만 선언한 유저 변수는 타입이 Student 인지 Developer 인지 알 수 없습니다. 그리고 특정 유저를 위한 함수가 생길수록 중복하여 타입 가드를 작성해야 하는 불편함이 있습니다.
 
 *제네릭 인터페이스 사용*
 ```typescript
@@ -284,3 +284,114 @@ let booleanMap: Map<boolean> = {
 
 
 ## 제네릭 클래스
+*number 타입의 배열을 생성하는 클래스*
+```typescript
+class NumberList {
+  constructor(private list: number[]) {}
+
+  push(data: number) {
+    this.list.push(data);
+  }
+
+  pop() {
+    return this.list.pop();
+  }
+
+  print() {
+    console.log(this.list);
+  }
+}
+
+const numberList = new NumberList([1, 2, 3]);
+```
+*string 타입의 배열을 생성하는 클래스*
+```typescript
+class StringList {
+  constructor(private list: string[]) {}
+
+  push(data: string) {
+    this.list.push(data);
+  }
+
+  pop() {
+    return this.list.pop();
+  }
+
+  print() {
+    console.log(this.list);
+  }
+}
+
+const stringList = new StringList([1, 2, 3]);
+```
+NumberList, StringList 클래스는 타입만 다를 뿐 배열을 생성하고 사용하는 필드와 클래스 함수는 동일합니다.(비효율)
+
+*제네릭 클래스*
+```typescript
+class GenericList<T> {
+  constructor(private list: T[]) {}
+
+  push(data: T) {
+    this.list.push(data);
+  }
+
+  pop() {
+    return this.list.pop();
+  }
+
+  print() {
+    console.log(this.list);
+  }
+}
+
+const genericList1 = new GenericList([1, 2, 3]);
+const genericList2 = new GenericList<string>(["a", "b"]);
+```
+제네릭 클래스는 전달하는 인자에 따라 다른 타입을 추론할 수 있습니다. 인자를 전달하기 때문에 타입 명시를 생략할 수 있습니다.
+
+
+## 프로미스, 제네릭
+타입스크립트에서 Promise는 제네릭 클래스로 구현되어 있습니다. Promise를 만들 때 타입을 명시하면 해당 타입이 resolve 결과 값의 타입이 됩니다.
+
+```typescript
+const promise = new Promise<number>((resolve, reject) => {
+  setTimeout(() => {
+    resolve(20);
+    // resolve("asdf");		// error
+  }, 3000);
+});
+
+promise.then((response) => {
+  // response는 number 타입
+  console.log(response);
+});
+
+promise.catch((error) => {
+  if (typeof error === "string") {
+    console.log(error);
+  }
+});
+```
+비동기 작업인 resolve와 reject 함수의 결과 값은 자동으로 추론할 수 없습니다. 
+Promise의 타입 변수를 명시하면 resolve 결과 값의 타입을 설정할 수 있습니다.
+
+모든 경우에서 resolve의 결과 값으로 Promsie의 타입 변수를 정확하게 추론할 수 없기 때문에 **안정성이 저하됩니다**. Promise를 사용하는 경우 타입 변수를 명시해서 타입 안정성을 향상시키는 것이 좋습니다.
+
+Promise의 catch 메서드는 매개변수인 error의 타입을 명확하게 알 수 없습니다. catch 메서드에서 타입 좁히기를 통해 안전하게 사용합니다.
+
+*Promise 타입 변수를 객체로 명시*
+```typescript
+interface User {
+  name: string;
+  age: number;
+}
+
+new Promise<User>((resolve, reject) => {
+  setTimeout(() => {
+    resolve({
+      name: "jsw",
+      age: 30
+    });
+  }, 3000);
+});
+```
