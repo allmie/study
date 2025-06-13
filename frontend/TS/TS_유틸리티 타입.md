@@ -246,4 +246,4 @@ type ReturnType_my<T extends (...args: any) => any> = T extends (...args: any) =
 1. `T extends (...args: any) => any` - 타입 변수 T를 함수의 타입으로 제한합니다.(해당 조건식이 없으면 함수가 아닌 타입도 타입 변수로 허용하게 됩니다.)
 2. `T extends (...args: any) => infer R ? R : never` - 타입 변수 T(함수)의 반환 값을 추론합니다.
 
-> 참조: [infer](https://github.com/allmie/study/blob/main/frontend/TS/TS_%EC%A1%B0%EA%B1%B4%EB%B6%80%20%ED%83%80%EC%9E%85.md#infer)
+> 참조: [조건부 타입 > infer](/frontend/TS/TS_조건부%20타입.md#infer)
