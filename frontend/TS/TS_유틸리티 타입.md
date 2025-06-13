@@ -175,9 +175,20 @@ interface ImageSize {
 }
 ```
 ImageSize 타입은 화면에 따라 다른 버전의 이미지 크기를 정의합니다. 
-화면의 크기가 다양해지면 프로퍼티를 추가해주어야 하기 때문에 중복 코드가 늘어날 수 있습니다.
+화면의 크기가 다양해지면 프로퍼티를 추가 하기 때문에 중복 코드가 늘어날 수 있습니다.
 
 *Record<K, V> 사용*
+```typescript
+type ImageSize = Record<"l" | "m" | "s", { px: number }>
+
+const imageSize: ImageSize = {
+  l: { px: 2 },
+  m: { px: 1 },
+  s: { px: 0 }
+}
+```
+
+*직접 Record<K, V> 구현*
 ```typescript
 type ImageSize<K extends keyof any, V> = {
   [key in K]: V;
@@ -197,5 +208,42 @@ const imageSize: T1 = {
 
 ## 조건부 타입 기반 유틸리티 타입(주요)
 ### Exclude<T, U>
+특정 타입 T에서 원하는 타입 U를 제거하는 타입입니다. 타입 변수 T가 union 타입이면 조건문을 분산적으로 처리합니다.
+```typescript
+type T1 = Exclude<string | number, string>;                       // type: number
+type T2 = Exclude<string | number | undefined, string | number>;  // type: undefined
+```
+
+*직접 Exclude<T, U> 구현*
+```typescript
+type Exclude_my<T, U> = T extends U ? never : T;
+```
+
 ### Extract<T, U>
+특정 타입 T에서 원하는 타입 U만 추출하는 타입입니다. `Exclude<T, U>` 타입과 마찬가지로 타입 변수 T가 union 타입이면 조건문을 분산적으로 처리합니다.
+```typescript
+type T1 = Extract<string | number, string>;                       // type: string
+type T2 = Extract<string | number | undefined, string | number>;  // type: string | number
+```
+
+*직접 Extract<T, U> 구현*
+```typescript
+ttype Extract_my<T, U> = T extends U ? T : never;
+```
+
 ### ReturnType<T>
+타입 변수 T에 할당된 함수 타입의 반환 값을 추출하는 타입입니다.
+```typescript
+type T1 = ReturnType<() => string>;   // type: string
+type T2 = ReturnType<() => number>;   // type: number
+type T3 = ReturnType<() => Promise<number>>;   // type: Promise<number>
+```
+
+*직접 ReturnType<T> 구현*
+```typescript
+type ReturnType_my<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : never;
+```
+1. `T extends (...args: any) => any` - 타입 변수 T를 함수의 타입으로 제한합니다.(해당 조건식이 없으면 함수가 아닌 타입도 타입 변수로 허용하게 됩니다.)
+2. `T extends (...args: any) => infer R ? R : never` - 타입 변수 T(함수)의 반환 값을 추론합니다.
+
+> 참조: [infer](https://github.com/allmie/study/blob/main/frontend/TS/TS_%EC%A1%B0%EA%B1%B4%EB%B6%80%20%ED%83%80%EC%9E%85.md#infer)
