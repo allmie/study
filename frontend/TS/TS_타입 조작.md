@@ -3,6 +3,10 @@
 
 제네릭, 인터페이스, 타입 별칭도 타입 조작의 일부입니다.
 
+> 타입을 정의할 때 **interface**를 주로 사용
+>
+> 타입을 조작해서 재정의 할 때는 **타입 별칭**을 사용
+
 ## [제네릭](https://github.com/allmie/study/blob/main/frontend/TS/TS_%EC%A0%9C%EB%84%A4%EB%A6%AD.md)
 
 ## 인덱스드 엑세스 타입
