@@ -225,4 +225,4 @@ type ColoredAnimal = `${Color}-${Animal}`;
 ```
 
 
-(## 조건부 타입)
+## [조건부 타입](https://github.com/allmie/study/blob/main/frontend/TS/TS_%EC%A1%B0%EA%B1%B4%EB%B6%80%20%ED%83%80%EC%9E%85.md)
