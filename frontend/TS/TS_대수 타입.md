@@ -62,10 +62,12 @@ let e: Union1 = {
 }
 ```
 <div align="center">
- <img src="https://github.com/user-attachments/assets/43d820b1-575e-499b-abba-f7766b9c329e" width="50%" height="50%" title="Union 타입 집합" alt="Union 타입 집합 drawio"></img>
+ <img src="https://github.com/user-attachments/assets/792e3fc1-5e3c-4be0-9e9f-44976a31dc16" width="50%" height="50%" title="Union 타입 집합" alt="Union 타입 집합 drawio"></img>
 </div>
 
-c와 d 객체의 경우 A:`Dog` 혹은 B:`Person` 객체 타입 어디에도 속하지 않는 타입이기 때문에 오류가 나타납니다. 
+c와 d 객체의 경우 A, B, C 객체 타입 어디에도 속하지 않는 타입이기 때문에 오류가 나타납니다.
+
+Union1 타입은 아래 Union2 타입과 같다.
 
 
 ## Intersection 타입
@@ -122,9 +124,9 @@ let b: Intersection1 = {  // error
 }
 ```
 <div align="center">
- <img src="https://github.com/user-attachments/assets/43d820b1-575e-499b-abba-f7766b9c329e" width="50%" height="50%" title="Union 타입 집합" alt="Union 타입 집합 drawio"></img>
+ <img src="https://github.com/user-attachments/assets/792e3fc1-5e3c-4be0-9e9f-44976a31dc16" width="50%" height="50%" title="Union 타입 집합" alt="Union 타입 집합 drawio"></img>
 </div>
 
-Intersection 타입은 B 부분에 해당하며 `Dog`와 `Person` 타입 객체의 모든 프로퍼티를 가집니다.(Dog와 Person 두 객체의 서브 타입)
+Intersection 타입은 B 부분에 해당합니다. Dog와 Person 타입 객체의 모든 프로퍼티를 가집니다.(Dog와 Person 두 객체의 서브 타입)
 
-a 객체는 B, b 객체는 B를 제외한 C에 포함되기 때문에 오류가 나타납니다.
+b 객체는 B에 해당하지 않기 때문에 오류가 나타납니다.
