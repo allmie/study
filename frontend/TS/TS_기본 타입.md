@@ -156,8 +156,8 @@ num = unknownVar; // error
 let a: void;
 
 // tsconfig.json > strictNullChecks: false
+// a = null;      // error, 할당할 수 없는 값
 a = undefined; // void
-a = null;      // void
 
 function voidFunc(): void {
  console.log("no return function");
@@ -189,6 +189,9 @@ a = undefined;  // error
 a = () => {};   // error
 ```
 변수에 never 타입을 사용하면 어떤 값도 할당 할 수 없습니다.
+
+### void vs never 변수 선언
+두 타입 모두 값을 할당하지 않은 변수를 선언만 할 수 있습니다. 하지만 never 타입으로 선언한 변수는 타입스크립트 옵션에 따라 오류가 나타날 수 있습니다. 흐름상 불가능한 상황인지(never) 의미가 없는 반환인지(void) 파악하는 것이 중요합니다.
 
 
 ## enum
