@@ -18,6 +18,26 @@ const strings: StringArray = {
 }
 ```
 
+### 인덱스 시그니쳐외에 프로퍼티 키를 사용하는 경우
+```typescript
+type IndexSig = {
+  [key: string]: string;
+  name: string;
+  age: number;        // error
+}
+```
+인덱스 시그니쳐에서 정의한 value의 타입과 다른 타입은 사용할 수 없습니다.
+
+다른 타입을 사용하려면, 아래와 같이 사용합니다
+```typescript
+type IndexSig = {
+  [key: string]: string | number;
+  name: string;
+  age: number;
+}
+```
+
+<!-- 
 ## 인덱스 시그니처 충돌
 ### 예시 1
 ```typescript
@@ -89,3 +109,4 @@ type Test3 = {
 ```
 
 참고: [TS 문서](https://www.typescriptlang.org/docs/handbook/2/objects.html#index-signatures)
+-->
