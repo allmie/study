@@ -72,7 +72,6 @@ c와 d 객체의 경우 A:`Dog` 혹은 B:`Person` 객체 타입 어디에도 속
 교집합. 2개 이상의 타입을 조합하는 경우를 말합니다.(and)
 
 ### 관계가 없는 두 타입
-> 참고: [서로소 유니온 타입](./TS_서로소%20유니온%20타입.md)
 ```typescript
 let n: never = null as never;
 let v: void;
