@@ -39,8 +39,6 @@ type Person = {
 
 type Union1 = Dog | Person;
 
-let a: Union1;
-
 let a: Union1 = {
    name: "d",
    color: "red",
@@ -51,20 +49,23 @@ let b: Union1 = {
    name: "dd",
    language: "ko"
 }
-let c: Union1 = {
+let c: Union1 = { // error
    language: "ko"
-}    // error
-let d: Union1 = {
+}
+let d: Union1 = { // error
    name: "d",
-}    // error
+}
+let e: Union1 = {
+  color: "",
+  name: "",
+  language: "",
+}
 ```
 <div align="center">
  <img src="https://github.com/user-attachments/assets/43d820b1-575e-499b-abba-f7766b9c329e" width="50%" height="50%" title="Union 타입 집합" alt="Union 타입 집합 drawio"></img>
 </div>
 
-위 그림에서 B를 제외한 A와 B타입은 `Dog` 타입과 `Person` 타입 어디에도 속하지 않는다.
-
-그렇기 때문에 c와 d 객체의 경우 `Dog` 혹은 `Person` 객체 타입 어디에도 속하지 않기 때문에 오류가 나타납니다. 
+c와 d 객체의 경우 A:`Dog` 혹은 B:`Person` 객체 타입 어디에도 속하지 않는 타입이기 때문에 오류가 나타납니다. 
 
 
 ## Intersection 타입
@@ -85,10 +86,18 @@ variable = v;  // error
  <img src="https://github.com/user-attachments/assets/a48178aa-ba57-4eac-a4d1-f5612db0dcfa" width="50%" height="50%" title="Union 타입 집합" alt="Union 타입 집합 drawio"></img>
 </div>
 
-두 집합은 교집합이 없기 때문에 never 타입으로 추론 됩니다.
+두 집합은 교집합이 없기 때문에 never 타입으로 추론됩니다.
 
 
 ### 교집합이 있는 두 타입
+```typescript
+let intersection: string & "intersection";
+
+intersection = "typescript";  // error
+intersection = "intersection" // ok
+```
+더 상세한 타입으로 추론됩니다.
+
 ```typescript
 type Dog = {
   name: string;
@@ -107,13 +116,15 @@ let a: Intersection1 = {
   language: "ko",
   color: "red",
 }
-let b: Intersection1 = {
+let b: Intersection1 = {  // error
   name: "all",
   language: "us",
-}    // error 
+}
 ```
 <div align="center">
  <img src="https://github.com/user-attachments/assets/43d820b1-575e-499b-abba-f7766b9c329e" width="50%" height="50%" title="Union 타입 집합" alt="Union 타입 집합 drawio"></img>
 </div>
 
-B 부분에 해당하며 `Dog`와 `Person` 타입 객체의 모든 프로퍼티를 가집니다.(Dog와 Person 두 객체의 서브 타입)
+Intersection 타입은 B 부분에 해당하며 `Dog`와 `Person` 타입 객체의 모든 프로퍼티를 가집니다.(Dog와 Person 두 객체의 서브 타입)
+
+a 객체는 B, b 객체는 B를 제외한 C에 포함되기 때문에 오류가 나타납니다.
