@@ -71,6 +71,8 @@ c와 d 객체의 경우 A:`Dog` 혹은 B:`Person` 객체 타입 어디에도 속
 ## Intersection 타입
 교집합. 2개 이상의 타입을 조합하는 경우를 말합니다.(and)
 
+### 관계가 없는 두 타입
+> 참고: [서로소 유니온 타입](./TS_서로소%20유니온%20타입.md)
 ```typescript
 let n: never = null as never;
 let v: void;
@@ -81,7 +83,6 @@ variable = n;
 variable = v;  // error
 ```
 
-### 관계가 없는 두 타입
 <div align="center">
  <img src="https://github.com/user-attachments/assets/a48178aa-ba57-4eac-a4d1-f5612db0dcfa" width="50%" height="50%" title="Union 타입 집합" alt="Union 타입 집합 drawio"></img>
 </div>
