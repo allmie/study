@@ -84,19 +84,23 @@ type T3 = IsString<number | string>;  // type: string | number
 그리고 분리된 모든 타입은 string, number union 타입이 변환합니다.
 
 ```typescript
-type T4 = IsString<number | string | boolena>;  // type: number | string
+type T4 = IsString<number | string | boolean>;  // type: number | string
 ```
-T4 타입은 `IsString<number>`, `sString<string>`, `IsString<boolena>` 타입은 number, string, number 타입으로 분리된 후 
+T4 타입은 `IsString<number>`, `sString<string>`, `IsString<boolean>` 타입은 number, string, number 타입으로 분리된 후 
 union 타입인 number | string 타입이 됩니다.
 
 ### 분산되지 않는 조건부 타입
 ```typescript
 type T5 = string | number extends string ? string : number;  // type: number
-type T6 = Array<string | number>;                            // type: (string | number)[]
 ```
 T5 타입은 타입 변수없이 타입을 직접 입력합니다.(리터럴 타입) (string | number) 타입은 하나의 타입으로 인식되어 분산처리 되지 않습니다.
 
-T6 타입은 타입 변수를 사용하지만 `T` 타입 변수를 그대로 사용하지 않고 `T[]` 변환했기 때문에 분산처리 되지 않습니다.
+```typescript
+type IsString2<T> = T[] extends string[] ? string : number;
+
+type T6 = IsString2<string | number>;    // number
+```
+IsString2 타입은 타입 변수를 `T[]` 형태로 변환해서 사용합니다. T6는 변환한 IsString2 타입을 사용하기 때문에 조건식이 분산 처리되지 않습니다.
 
 
 > union 타입을 타입 변수를 사용해서 조건부 타입을 정의하면 분산적으로 처리됩니다.
