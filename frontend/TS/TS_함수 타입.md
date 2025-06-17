@@ -85,6 +85,7 @@ function stringSum(...rest: [string, string]) {
 ## 함수 타입 표현식(function type expression)
 함수 타입을 별도로 정의하는 방법.(타입 별칭)
 
+### 화살표 함수 사용
 ```typescript
 type Add = (a: number, b: number) => number
 
@@ -105,6 +106,15 @@ const multi: cal = (a, b) => a * b;
 const divide: cal = (a, b) => a / b;
 ```
 여러 개의 함수가 동일한 타입을 갖는 경우 유용합니다.
+
+### 함수 표현식 사용
+```typescript
+type Add = (a: number, b: number) => number
+
+let add: Add = function (a, b){
+  return a + b;
+}
+```
 
 ## 호출 시그니쳐(call signature)
 함수 타입 표현식과 동일하게 함수의 타입을 별도로 정의하는 방식. Javascript의 객체 형태와 유사합니다.
@@ -186,7 +196,9 @@ b = a;     // ok
 `a 함수`는 모든 숫자를 허용, `b 함수`는 `10` 만 허용합니다.</br>
 `a(5)` 를 실행하면 `b(5)`가 호출되는데, 이 때 `b 함수`는 숫자 5를 허용하지 않습니다.(`a = b`)
 
-`b(10)` 을 실행하면 `a(10)`가 호출되는데, 이 때 `a 함수`는 숫자 1을 허용합니다 허용합니다.(`b = a`)
+`b(10)` 을 실행하면 `a(10)`가 호출되는데, 이 때 `a 함수`는 숫자 10을 허용합니다.(`b = a`)
+
+ - a 함수는 매개변수가 number인 함수, b 함수는 매개변수가 숫자 10만 허용하는 함수!
 
 ```typescript
 b(10);     // console: 'a 함수', b: (v: 10) => void
@@ -219,25 +231,26 @@ let dogFunc = (dog: Dog) => {
 animalFunc = dogFunc; // error
 dogFunc = animalFunc; // ok
 ```
-`animalFunc` 함수는 `name` 프로퍼티를 가지는 `Animal`, `Dog` 타입을 매개변수로 허용합니다.</br>
-`animalFunc([Animal type])` 를 실행하면 `dogFunc([Animal type])` 가 호출되는데,</br>
-`dogFunc` 함수는 `Animal 타입` 을 허용하지 않습니다.(animalFunc = dogFunc)
+animalFunc 함수는 Animal 타입과 서브 타입인 Dog 타입을 매개변수로 허용합니다.
+dogFunc 함수는 Dog 타입을 매개변수로 허용합니다.(매개변수가 객체인 경우는 일반적인 경우와 다르게 다운캐스팅을 허용합니다)
 
-`dogFunc` 함수는 `color`, `name` 프로퍼티를 가지는 `Dog` 타입 매개변수를 허용합니다.</br>
-`dogFunc([Dog type])` 를 실행하면 `animalFunc([Dog type])` 가 호출되는데,</br>
-`animalFunc` 함수는 `Animal 타입` 을 허용합니다.(dogFunc = animalFunc)
+**animalFunc = dogFunc**
+animalFunc([Animal type])을 실행하면 dogFunc([Animal type])을 호출하는데,
+dogFunc 함수는 Animal 타입을 허용하지 않습니다.
+
+**dogFunc = animalFunc**
+dogFunc([Dog type])을 실행하면 animalFunc([Dog type])를 호출하는데,
+animalFunc 함수는 Animal 타입의 서브 타입인 Dog 타입을 허용합니다.
 
 | animalFunc 매개 변수 | 허용 |
 | --- |:---:|
 | Animal type | ✅ |
 | Dog type | ✅ |
-------------------
 
 | dogFunc 매개 변수 | 허용 |
 | --- |:---:|
 | Animal type | ❌ |
 | Dog type | ✅ |
-------------------
 
 *함수 대체*
 ```typescript
@@ -267,8 +280,10 @@ a = b;  // error
 a = c;  // error
 b = a;  // ok
 ```
-매개변수의 개수가 적은 함수에서 많은 함수로 할당할 수 있습니다.</br>
+매개변수의 개수가 적은 함수에서 많은 함수로 할당할 수 있습니다.
 대응하는 매개변수의 타입이 호환되지 않으면 함수는 할당할 수 없습니다.(`a = c`)
+
+> *매개변수가 다른 경우는 매개변수가 객체인 경우로 생각해서 비교하면 간단합니다. 매개변수가 많은 경우가 프로퍼티가 더 많은 객체(서브 타입), 적은 경우가 프로퍼티가 더 적은 객체(슈퍼 타입)
 
 
 ## 함수 오버로딩
