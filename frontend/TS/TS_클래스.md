@@ -107,6 +107,18 @@ console.log(user1); // class { name: "jsw", age: 19 }
 `isAdult()` 메서드의 조건문에서 `this.age` 필드는 선택적 프로퍼티 이므로 `undefined`와 union 타입입니다. 
 union 타입과 숫자의 비교 연산은 불명확한 비교 연산을 막기 위해 오류로 처리됩니다.
 
+*해결 0*
+```typescript
+class User {
+  // ...
+  isAdult(){
+    if(this.age! < 19){            // ok
+    // ...
+  }
+}
+```
+non null 연산자를 사용해 this.age의 타입이 undefined 타입이 아님을 단언합니다.
+
 *해결 1*
 ```typescript
 class User {
@@ -133,7 +145,7 @@ user2.isAdult();    // console: "성인이 아닙니다"
 console.log(user1); // class { name: "jsw", age: 19 }
 console.log(user2); // class { name: "jsw", age: 3 }
 ```
-타입 단언을 사용해서 union 타입을 number 타입으로 단언합니다. (복잡한 코드에서는 비추천 방법)
+isAdult() 메서드에서 타입 단언을 사용해서 union 타입을 number 타입으로 단언합니다. (복잡한 코드에서는 비추천 방법)
 
 *해결 2*
 ```typescript
@@ -163,7 +175,7 @@ user2.isAdult();    // console: "성인이 아닙니다"
 console.log(user1); // class { name: "jsw", age: 19 }
 console.log(user2); // class { name: "jsw", age: 3 }
 ```
-해당하는 클래스 함수에서 조건문을 사용해 필드가 `undefined`인 경우를 처리합니다.
+해당하는 클래스 메서드에서 조건문을 사용해 필드가 `undefined`인 경우를 처리합니다.
 
 > 타입이 명확해야 한다!
 
