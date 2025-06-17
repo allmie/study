@@ -1,12 +1,11 @@
 # 타입 호환
-[타입스크립트에서 타입은 집합과 같은 특징을 가집니다.](https://www.inflearn.com/courses/lecture?courseId=330452&type=LECTURE&unitId=156630&subtitleLanguage=ko&tab=curriculum&audioLanguage=ko)
+[타입스크립트에서 타입은 집합과 같은 특징을 가집니다.(한 입 타입스크립트 강의)](https://www.inflearn.com/courses/lecture?courseId=330452&type=LECTURE&unitId=156630&subtitleLanguage=ko&tab=curriculum&audioLanguage=ko)
 집합은 동일한 속성을 갖는 여러개의 요소들을 하나의 그룹으로 묶은 단위를 말합니다.
-</br>
 
 <div align="center">
  <img src="https://github.com/user-attachments/assets/bf599f56-182e-43da-95cd-6b061985a3c5" width="50%" height="50%" title="집합 이미지1" alt="집합1 drawio"></img>
 </div>
-하나의 타입은 동일한 속성을 가지는 데이터의 집합으로 볼 수 있습니다.</br></br>
+하나의 타입은 동일한 속성을 가지는 데이터의 집합으로 볼 수 있습니다.
 
 <div align="center">
  <img src="https://github.com/user-attachments/assets/c05988b7-607c-4470-9ed4-c9ef114426a7" width="30%" height="30%" title="집합 이미지2" alt="집합2 drawio"></img>
@@ -74,7 +73,9 @@ any를 제외한 어떠한 타입으로도 다운 캐스트 할 수 없습니다
  <img src="https://github.com/user-attachments/assets/493f265c-cd44-4d71-973f-4efe4ed76ffc" width="50%" height="50%" title="never 타입 집합 이미지" alt="never 타입 집합 이미지"></img>
 </div>
 
-never 타입은 최 하위 타입으로 불가능한 타입입니다.</br>변수는 어떠한 값도 할당할 수 없고, 함수도 정상적으로 종료되지 않은 함수에 대해서만 사용 가능하기 때문에 할당할 수 있는 데이터는 없습니다. 이러한 특징은 공집합과 같은데 [공집합은 모든 집합의 부분 집합](https://ko.wikipedia.org/wiki/%EA%B3%B5%EC%A7%91%ED%95%A9)입니다. 
+never 타입은 최 하위 타입으로 불가능한 타입입니다.
+
+변수는 어떠한 값도 할당할 수 없고, 함수도 정상적으로 종료되지 않은 함수에 대해서만 사용 가능하기 때문에 할당할 수 있는 데이터는 없습니다. 이러한 특징은 공집합과 같은데 [공집합은 모든 집합의 부분 집합](https://ko.wikipedia.org/wiki/%EA%B3%B5%EC%A7%91%ED%95%A9)입니다. 
 
 
 ```typescript
@@ -131,8 +132,7 @@ v = undefined; // ok,  void <= undefined
 let n: never = null as never;
 v = n;         // ok, void <= never
 ```
-void는 undefined와 never 타입의 슈퍼 타입입니다.</br></br>
-
+void는 undefined와 never 타입의 슈퍼 타입입니다.
 
 ### any
 ```typescript
@@ -154,7 +154,7 @@ c = a;  // ok, number <= any
 d = a;  // ok, string[] <= any
 e = a;  // ok, object <= any
 ```
-any는 예외적으로 모든 타입의 슈퍼 타입이면서 서브 타입입니다. (never 제외)</br></br>
+any는 예외적으로 모든 타입의 슈퍼 타입이면서 서브 타입입니다. (never 제외)
 
 
 ## 객체 타입
@@ -188,16 +188,14 @@ dog = animal; // error, 다운 캐스팅
 
 Dog 타입이 Animal 타입보다 더 많은 프로퍼티를 가지기 때문에 슈퍼 타입으로 보이지만 그렇지 않습니다.
 
-<div align="center">
- <img src="https://github.com/user-attachments/assets/c104e3c4-56d6-4884-9e4e-21a4b974b412" width="35%" height="35%" title="객체 타입 호환 집합" alt="객체 타입 호환 집합"></img>
-</div>
+Dog 타입의 변수가 Animal 타입의 변수에 할당 가능합니다. Animal 타입의 변수는 name, color 프로퍼티를 필요로하며 Dog 타입은 이를 가지고 있기 때문입니다. 
 
-집합으로 생각하면 간단합니다. Animal 타입은 name, color를 가지는 객체이고 Dog 타입은 name, color + breed 프로퍼티를 가지기 때문에 위 그림과 같은 집합이 됩니다.
-
-따라서 Dog 타입에 포함되는 객체는 Animal 타입이 될 수 있지만 그 반대는 허용하지 않습니다. </br>
+하지만 반대의 경우 Dog 타입은 name, color, breed 프로퍼티를 요구하지만 Animal 타입은 name, color 프로퍼티만 가지고 있기 때문에 오류가 나타납니다.
 
 ### 초과 프로퍼티 검사
-변수를 **객체 리터럴로 초기화**할 때, 타입에 정의된 프로퍼티 외의 초과된 프로퍼티를 갖는 객체를 변수에 할당 할 수 없도록 막는 검사입니다.(객체 리터럴로 초괴화하면 해당 객체가 어떤 타입의 서브 타입인지 알 수 없다)
+변수를 **객체 리터럴로 초기화**할 때, 타입에 정의된 프로퍼티 외의 초과된 프로퍼티를 갖는 객체를 변수에 할당 할 수 없도록 막는 검사입니다.
+
+객체 리터럴로 초기화하면 해당 객체가 어떤 타입의 서브 타입인지 알 수 없기 때문에 초과 프로퍼티 검사에서 오류가 발생합니다.(객체 타입 호환)
 
 ```typescript
 type Animal = {
